@@ -1,4 +1,5 @@
-/* Self-hosted from Google Fonts (OFL). Latin subsets only, plus Amiri's Arabic subset.
+/* Self-hosted from Google Fonts (OFL). Latin subsets only. Amiri is subset to the site's four Arabic
+   words (ليل عنبر ورد دخان, 12 KB, contextual forms kept): re-download with `&text=` if copy changes.
    Cormorant and Amiri block briefly instead of swapping: they sit behind the preloader. */
 
 @font-face {
@@ -30,6 +31,6 @@
   font-style: normal;
   font-weight: 400;
   font-display: block;
-  src: url('/fonts/amiri-arabic.woff2') format('woff2');
+  src: url('/fonts/amiri-arabic-subset.woff2') format('woff2');
   unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+200C-200E, U+FB50-FDFF, U+FE70-FEFC;
 }

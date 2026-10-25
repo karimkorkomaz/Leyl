@@ -79,6 +79,12 @@ button {
   z-index: var(--z-content);
 }
 
+/* The preloader holds the page still (lenis.ts also stops Lenis). */
+html.is-scroll-locked,
+html.is-scroll-locked body {
+  overflow: hidden;
+}
+
 .section {
   position: relative;
   min-height: var(--len, 100svh);

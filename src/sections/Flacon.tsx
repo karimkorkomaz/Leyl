@@ -3,7 +3,7 @@ import { callouts, type CalloutId } from '../content'
 import { gsap, ScrollTrigger, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { flaconPose } from '../motion/poses'
-import { introReady } from '../motion/ready'
+import { loaded } from '../motion/ready'
 import { emptyDraw, flaconStatic, flaconTimeline, type CalloutEls } from '../motion/timelines/flacon'
 import { onAnchors, screenAnchors } from '../scene/anchors'
 import './Flacon.css'
@@ -140,7 +140,7 @@ export function Flacon() {
           else flaconTimeline(root.current!, els, draw, pose, { stacked: !mobile })
         })
         let live = true
-        introReady.then(() => live && build())
+        loaded.then(() => live && build())
         return () => {
           live = false
         }

@@ -1,6 +1,7 @@
 import { Suspense, useEffect, useState } from 'react'
 import { NeutralToneMapping } from 'three'
 import { Canvas } from '@react-three/fiber'
+import { Preload } from '@react-three/drei'
 import { MEDIA } from '../motion/media'
 import { useMediaQuery } from '../lib/useMediaQuery'
 import { heroPose } from '../motion/poses'
@@ -39,6 +40,8 @@ export function Stage() {
         <color attach="background" args={[background]} />
         <Suspense fallback={null}>
           <Experience mobile={mobile} />
+          {/* Compile every shader under the preloader, so the first revealed frame never stalls. */}
+          <Preload all />
         </Suspense>
       </Canvas>
     </div>

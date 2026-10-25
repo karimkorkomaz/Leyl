@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { brand, labels, taglineLines } from '../content'
 import { gsap, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
-import { introReady } from '../motion/ready'
+import { revealed } from '../motion/ready'
 import { heroIntro, heroIntroInitial, heroScroll } from '../motion/timelines/hero'
 import './Hero.css'
 
@@ -24,7 +24,7 @@ export function Hero() {
         heroScroll(els, { fadeFoot: true })
         const play = ctx.add('play', () => heroIntro(els))
         let live = true
-        introReady.then(() => live && play())
+        revealed.then(() => live && play())
         return () => {
           live = false
         }

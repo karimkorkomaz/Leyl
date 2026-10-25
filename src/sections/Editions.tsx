@@ -4,7 +4,7 @@ import { gsap, ScrollTrigger, SplitText, useGSAP } from '../motion/gsap'
 import { getLenis } from '../motion/lenis'
 import { MEDIA } from '../motion/media'
 import { editionsPose } from '../motion/poses'
-import { introReady } from '../motion/ready'
+import { loaded } from '../motion/ready'
 import { editionSwap, editionsScene, editionsStatic, type DetailEls } from '../motion/timelines/editions'
 import { getEdition, setEdition, useEdition } from '../state/edition'
 import { MagneticButton } from '../ui/MagneticButton'
@@ -65,7 +65,7 @@ export function Editions() {
           })
         })
         let live = true
-        introReady.then(() => live && build())
+        loaded.then(() => live && build())
         return () => {
           live = false
           swapTo.current = null

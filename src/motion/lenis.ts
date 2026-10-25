@@ -2,9 +2,21 @@ import Lenis from 'lenis'
 import { gsap, ScrollTrigger } from './gsap'
 
 let lenis: Lenis | null = null
+let locked = false
 
 /** The live Lenis instance, or null under reduced motion. Use for scrollTo. */
 export const getLenis = () => lenis
+
+/**
+ * Lock or unlock page scrolling (the preloader holds it). Native overflow alone is not enough:
+ * Lenis scrolls programmatically, so it is stopped too, including an instance created later.
+ */
+export function setScrollLocked(value: boolean) {
+  locked = value
+  document.documentElement.classList.toggle('is-scroll-locked', value)
+  if (value) lenis?.stop()
+  else lenis?.start()
+}
 
 /** Start Lenis on GSAP's ticker so ScrollTrigger and Lenis share one clock. Returns a cleanup. */
 export function startLenis() {
@@ -15,6 +27,7 @@ export function startLenis() {
   gsap.ticker.add(raf)
   gsap.ticker.lagSmoothing(0)
   lenis = instance
+  if (locked) instance.stop()
 
   return () => {
     gsap.ticker.remove(raf)

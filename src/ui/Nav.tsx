@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { brand, nav } from '../content'
 import { gsap, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
-import { introReady } from '../motion/ready'
+import { revealed } from '../motion/ready'
 import './Nav.css'
 
 export function Nav() {
@@ -19,7 +19,7 @@ export function Nav() {
           gsap.to(items, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.07, ease: 'power3.out', delay: 0.9 }),
         )
         let live = true
-        introReady.then(() => live && play())
+        revealed.then(() => live && play())
         return () => {
           live = false
         }

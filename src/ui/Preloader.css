@@ -1,0 +1,79 @@
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  display: grid;
+  place-items: center;
+}
+
+/* Two ink halves that slide apart to reveal the hero. */
+.preloader__half {
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 50.5%;
+  background: var(--ink);
+}
+
+.preloader__half--top {
+  top: 0;
+}
+
+.preloader__half--bottom {
+  bottom: 0;
+}
+
+.preloader__content {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+}
+
+.preloader__arabic {
+  font-family: var(--font-arabic);
+  font-size: clamp(2.5rem, 2rem + 2vw, 3.75rem);
+  line-height: 1.4;
+  color: var(--gold);
+}
+
+.preloader__name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(1.25rem, 1rem + 0.6vw, 1.625rem);
+  letter-spacing: 0.5em;
+  margin-right: -0.5em;
+  color: var(--ivory);
+}
+
+.preloader__meter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2.25rem;
+}
+
+.preloader__track {
+  position: relative;
+  width: clamp(8rem, 6rem + 6vw, 11rem);
+  height: 1px;
+  overflow: hidden;
+  background: rgb(138 131 120 / 0.25);
+}
+
+.preloader__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Fixed width so the line never shifts as the digits change. */
+.preloader__count {
+  width: 2ch;
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+  color: var(--stone);
+}

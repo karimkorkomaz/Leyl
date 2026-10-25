@@ -1,0 +1,57 @@
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Positioned by transforms from Cursor.tsx; centered on the pointer by negative margins. */
+.cursor__dot,
+.cursor__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+}
+
+.cursor__dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  background: var(--ivory);
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.cursor__ring {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+}
+
+.cursor__ring-inner {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgb(237 230 218 / 0.45);
+  transition:
+    transform 0.45s var(--ease-out),
+    border-color 0.45s var(--ease-out);
+}
+
+/* Over something interactive: the ring opens in gold and the dot steps aside. */
+.cursor.is-hot .cursor__ring-inner {
+  transform: scale(1.9);
+  border-color: var(--gold);
+}
+
+/* Opacity, not scale: GSAP owns the dot's transform (its position). */
+.cursor.is-hot .cursor__dot {
+  opacity: 0;
+}
+
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}

@@ -3,7 +3,7 @@ import { brand } from '../content'
 import { gsap, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { editionsPose, finalePose } from '../motion/poses'
-import { introReady } from '../motion/ready'
+import { loaded } from '../motion/ready'
 import { finaleStatic, finaleTimeline } from '../motion/timelines/finale'
 import { Footer } from './Footer'
 import './Finale.css'
@@ -31,7 +31,7 @@ export function Finale() {
           finaleTimeline(root.current!, line.current!, pose, mobile ? editionsPose.mobile : editionsPose.desktop)
         })
         let live = true
-        introReady.then(() => live && build())
+        loaded.then(() => live && build())
         return () => {
           live = false
         }

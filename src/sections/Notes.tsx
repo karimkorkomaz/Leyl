@@ -3,7 +3,7 @@ import { labels, stages } from '../content'
 import { gsap, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { notesPose } from '../motion/poses'
-import { introReady } from '../motion/ready'
+import { loaded } from '../motion/ready'
 import { notesScene, notesStatic, notesText } from '../motion/timelines/notes'
 import { getEditionData, useEdition } from '../state/edition'
 import './Notes.css'
@@ -49,7 +49,7 @@ export function Notes() {
           notesText(root.current!, caption, steps)
         })
         let live = true
-        introReady.then(() => live && build())
+        loaded.then(() => live && build())
         return () => {
           live = false
         }
