@@ -211,13 +211,13 @@
   }
 
   .edition-detail__arabic {
-    font-size: 3.5rem;
+    font-size: clamp(3.5rem, 1.5rem + 8vw, 5.5rem);
     line-height: 1.3;
   }
 
   .edition-detail__line {
     margin-top: 0;
-    font-size: 1.375rem;
+    font-size: clamp(1.375rem, 1rem + 1.6vw, 1.875rem);
   }
 
   .edition-detail__mood,

@@ -103,11 +103,18 @@
   }
 
   .nav__links {
-    gap: 1rem;
+    gap: 0.9rem;
+  }
+
+  /* 11px is the floor for legible uppercase; tighter tracking keeps all three links beside the logo. */
+  @media (max-width: 380px) {
+    .nav__arabic {
+      display: none;
+    }
   }
 
   .nav__link {
-    font-size: 0.625rem;
-    letter-spacing: 0.16em;
+    font-size: 0.6875rem;
+    letter-spacing: 0.12em;
   }
 }

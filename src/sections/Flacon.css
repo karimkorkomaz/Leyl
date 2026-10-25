@@ -100,11 +100,11 @@
   }
 
   .callout__title {
-    font-size: 1.375rem;
+    font-size: clamp(1.375rem, 1rem + 1.5vw, 1.75rem);
   }
 
   .callout__body {
-    font-size: 0.8125rem;
+    font-size: clamp(0.8125rem, 0.75rem + 0.3vw, 0.9375rem);
   }
 
   /* Reduced motion on mobile: a compact list over a soft ink scrim (the fixed bottle is always
