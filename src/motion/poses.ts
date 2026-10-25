@@ -22,6 +22,44 @@ export const heroPose: Record<'desktop' | 'mobile', BasePose> = {
 /** Idle float: amplitude in world units, period in seconds. */
 export const float = { amplitude: 0.05, period: 6 }
 
+/**
+ * The Flacon's choreography endpoints, as deltas on top of the hero pose (see sceneState layers).
+ * dolly: 0–40% (rotate 180°, camera closer). lift: 40–70% (cap up and leaning; the camera steps
+ * back past rest and up, so base and lifted cap both stay framed with room for the callouts).
+ * drift: 70–100% (cap home, bottle to the left, camera back to rest).
+ */
+export type FlaconPose = {
+  dollyCamZ: number
+  dollyTargetY: number
+  capLift: number
+  capTilt: number
+  liftCamZ: number
+  liftTargetY: number
+  driftX: number
+}
+
+export const flaconPose: Record<'desktop' | 'mobile', FlaconPose> = {
+  desktop: {
+    dollyCamZ: -1.8,
+    dollyTargetY: 0.3,
+    capLift: 1.3,
+    capTilt: deg(7),
+    liftCamZ: 0.5,
+    liftTargetY: 0.75,
+    driftX: -0.22,
+  },
+  // Mobile keeps the bottle centered (CLAUDE.md): no drift, gentler camera.
+  mobile: {
+    dollyCamZ: -2,
+    dollyTargetY: 0.3,
+    capLift: 1.3,
+    capTilt: deg(7),
+    liftCamZ: 0.5,
+    liftTargetY: 0.8,
+    driftX: 0,
+  },
+}
+
 /** The bottle starts this far below its rest pose and rises into place on load. */
 export const introDrop = -0.35
 

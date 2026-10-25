@@ -1,14 +1,17 @@
 import { useRef } from 'react'
-import { MathUtils, type Group, type PerspectiveCamera } from 'three'
+import { MathUtils, Vector3, type Group, type PerspectiveCamera } from 'three'
 import { useFrame } from '@react-three/fiber'
 import { float } from '../motion/poses'
 import { layerList, sceneState } from '../motion/sceneState'
+import { anchorIds, anchorPoints, emitAnchors, screenAnchors } from './anchors'
 
 const TAU = Math.PI * 2
+const tiltAxis = new Vector3()
+const projected = new Vector3()
 
 /**
- * The one frame loop: compose base + Σ layers + idle, then apply to camera and bottle.
- * Returns the refs to attach to the bottle rig's nested groups.
+ * The one frame loop: compose base + Σ layers + idle, then apply to camera and bottle, then project
+ * the callout anchors to the screen for the DOM. Returns the refs for the bottle rig's nested groups.
  */
 export function useSceneDriver() {
   /** x drift + scale; also carries the floor, which must not float or spin. */
@@ -29,6 +32,7 @@ export function useSceneDriver() {
     let capTilt = 0
     let camY = base.camY
     let camZ = base.camZ
+    let targetY = base.targetY
     for (const l of layerList) {
       x += l.x
       y += l.y
@@ -37,11 +41,13 @@ export function useSceneDriver() {
       capTilt += l.capTilt
       camY += l.camY
       camZ += l.camZ
+      targetY += l.targetY
     }
 
     const camera = state.camera as PerspectiveCamera
     camera.position.set(0, camY, camZ)
-    camera.lookAt(0, base.targetY, 0)
+    camera.lookAt(0, targetY, 0)
+    camera.updateMatrixWorld()
 
     const pose = poseRef.current
     const lift = liftRef.current
@@ -57,8 +63,23 @@ export function useSceneDriver() {
     lift.position.y = y + Math.sin((state.clock.elapsedTime * TAU) / float.period) * float.amplitude * idle.float
     spin.rotation.y = rotY
 
-    capPivot.position.y = (capPivot.userData.restY as number) + capLift
-    capPivot.rotation.z = capTilt
+    // Lean the cap about the view axis (world Z) whatever the bottle's spin, so a positive tilt
+    // always reads as a clockwise lean on screen. World Z expressed in the spin group's frame:
+    const capRestY = capPivot.userData.restY as number
+    capPivot.position.y = capRestY + capLift
+    tiltAxis.set(-Math.sin(rotY), 0, Math.cos(rotY))
+    capPivot.quaternion.setFromAxisAngle(tiltAxis, -capTilt)
+
+    // Project the callout anchors (lift-group frame → world → viewport pixels).
+    const s = base.scale
+    for (const id of anchorIds) {
+      const p = anchorPoints[id]
+      const py = p.onCap ? capRestY + capLift + p.y : p.y
+      projected.set(pose.position.x + s * p.x, s * (lift.position.y + py), s * p.z).project(camera)
+      screenAnchors[id].x = ((projected.x + 1) / 2) * state.size.width
+      screenAnchors[id].y = ((1 - projected.y) / 2) * state.size.height
+    }
+    emitAnchors()
   })
 
   return { pose: poseRef, lift: liftRef, spin: spinRef, capPivot: capPivotRef }

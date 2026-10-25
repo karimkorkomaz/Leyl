@@ -10,12 +10,14 @@ export type Layer = {
   y: number
   rotY: number
   capLift: number
+  /** Cap lean in radians, clockwise on screen (applied about the view axis, not the cap's own). */
   capTilt: number
   camY: number
   camZ: number
+  targetY: number
 }
 
-const layer = (): Layer => ({ x: 0, y: 0, rotY: 0, capLift: 0, capTilt: 0, camY: 0, camZ: 0 })
+const layer = (): Layer => ({ x: 0, y: 0, rotY: 0, capLift: 0, capTilt: 0, camY: 0, camZ: 0, targetY: 0 })
 
 export const sceneState = {
   base: { ...heroPose.desktop },

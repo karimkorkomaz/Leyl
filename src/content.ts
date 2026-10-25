@@ -81,11 +81,14 @@ export const stages: readonly { id: StageId; label: string; numeral: string }[] 
   { id: 'base', label: 'Base', numeral: '03' },
 ]
 
-export const callouts = [
-  { id: 'base', text: 'Cast glass. A 9 mm base that holds the light.' },
-  { id: 'cap', text: 'Hand-polished cap. Weighted, cool to the touch.' },
-  { id: 'volume', text: '50 ml. Eau de Parfum.' },
-] as const
+export type CalloutId = 'base' | 'cap' | 'volume'
+
+/** The Flacon's three callouts, in the order they appear. Title is set in serif, body in sans. */
+export const callouts: readonly { id: CalloutId; title: string; body: string }[] = [
+  { id: 'base', title: 'Cast glass.', body: 'A 9 mm base that holds the light.' },
+  { id: 'cap', title: 'Hand-polished cap.', body: 'Weighted, cool to the touch.' },
+  { id: 'volume', title: '50 ml.', body: 'Eau de Parfum.' },
+]
 
 export const credits = {
   concept: 'A concept by Ahmad El Amine',

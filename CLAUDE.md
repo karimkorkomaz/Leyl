@@ -112,6 +112,11 @@ Implemented in `src/scene/materials.tsx`, `Lighting.tsx`, `ReflectionOverlay.tsx
 - Motion has weight. Easing: `expo.out` / `power3.out` for reveals, `power2.inOut` for transitions, `none` inside scrubbed timelines.
 - No bounce, elastic, or back easing. Nothing spins fast.
 - Reveal durations 0.9–1.4s. Character staggers 0.02–0.05s. Scroll scrub: `scrub: 1`.
+  Exception: things that must track the page exactly like DOM (the hero wordmark leaving) use `scrub: true`.
+- Inside scrubbed timelines, DOM tweens use `ease: 'none'`; 3D camera/bottle segments use `sine.inOut` so the
+  camera never jerks where one segment hands over to the next.
+- `gsap.matchMedia().add({ a, b }, fn)` only runs `fn` when at least one condition matches: always pass both
+  sides of each query (e.g. `desktop` + `mobile`, `motionOK` + `reduced`), or the default case silently never builds.
 - Text reveals use SplitText with masks (lines or chars sliding up inside `overflow: hidden`), never plain fades only.
 - Animate only `transform` and `opacity` in the DOM.
 - Camera moves are slow and purposeful. The bottle's idle state has a slow float (~0.05 units, 6s cycle).

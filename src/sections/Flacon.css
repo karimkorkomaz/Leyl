@@ -1,0 +1,148 @@
+.flacon {
+  --len: var(--len-flacon);
+}
+
+.flacon__callouts {
+  list-style: none;
+}
+
+/* Desktop: text in the outer columns, its title line leveled with its anchor every frame
+   (top: 0 + a translateY written from Flacon.tsx). */
+.callout {
+  position: absolute;
+  top: 0;
+  width: min(17rem, 22vw);
+  visibility: hidden;
+}
+
+.callout[data-side='left'] {
+  right: 72%;
+  text-align: right;
+}
+
+.callout[data-side='right'] {
+  left: 72%;
+}
+
+.callout__title {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.375rem, 1rem + 0.8vw, 1.875rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--ivory);
+}
+
+.callout__body {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--stone);
+}
+
+/* Hairlines and dots: 1px boxes placed and stretched by transforms from Flacon.tsx. */
+.callout__line,
+.callout__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.callout__line {
+  width: 1px;
+  height: 1px;
+  background: var(--gold);
+  transform-origin: 0 0;
+  transform: scale(0);
+}
+
+/* A small gold point with a faint halo: set like a stone. */
+.callout__dot {
+  width: 5px;
+  height: 5px;
+  margin: -2.5px 0 0 -2.5px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgb(201 169 110 / 0.14);
+  transform: scale(0);
+}
+
+/* Mobile: one callout at a time, above (cap) or below (glass, volume) the bottle. */
+@media (max-width: 768px) {
+  /* Shrink-wrapped, its edge hung on its hairline by a translateX from Flacon.tsx. */
+  .callout,
+  .callout[data-side] {
+    right: auto;
+    left: 0;
+    width: max-content;
+    max-width: calc(100% - 40px);
+  }
+
+  .callout[data-side='left'] {
+    text-align: left;
+  }
+
+  .callout[data-side='right'] {
+    text-align: right;
+  }
+
+  .callout[data-slot='top'] {
+    top: 5.5rem;
+  }
+
+  .callout[data-slot='bottom'] {
+    top: auto;
+    bottom: 3.5rem;
+  }
+
+  .callout__title {
+    font-size: 1.375rem;
+  }
+
+  .callout__body {
+    font-size: 0.8125rem;
+  }
+
+  /* Reduced motion on mobile: a compact list over a soft ink scrim (the fixed bottle is always
+     behind it), no hairlines. */
+  .flacon[data-layout='list'] .flacon__callouts {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: grid;
+    gap: 0.7rem;
+    padding: 4.5rem var(--margin) 2.25rem;
+    background: linear-gradient(to bottom, transparent, rgb(10 9 8 / 0.85) 45%);
+  }
+
+  .flacon[data-layout='list'] .callout {
+    position: static;
+    width: auto;
+    max-width: none;
+    text-align: left;
+    transform: none;
+  }
+
+  .flacon[data-layout='list'] .callout__title,
+  .flacon[data-layout='list'] .callout__body {
+    display: inline;
+  }
+
+  .flacon[data-layout='list'] .callout__title {
+    font-size: 1.125rem;
+  }
+
+  .flacon[data-layout='list'] .callout__body {
+    margin: 0 0 0 0.35em;
+  }
+
+  .flacon[data-layout='list'] .callout__line,
+  .flacon[data-layout='list'] .callout__dot {
+    display: none;
+  }
+}
