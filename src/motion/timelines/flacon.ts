@@ -58,7 +58,9 @@ export function flaconTimeline(
   tl.to(layer, { capTilt: pose.capTilt, duration: 8, ease: EASE_3D }, 47)
   // Hover: the cap keeps rising, barely, while the callouts read.
   tl.to(layer, { capLift: pose.capLift + 0.07, duration: 16, ease: EASE_3D }, 54)
-  tl.to(introLines, { yPercent: -110, duration: 5, stagger: 0.8 }, 30)
+  // -150, not -110: at line-height 0.95 a descender (the g of "night") overhangs its mask and would
+  // peek back in after a one-box exit.
+  tl.to(introLines, { yPercent: -150, duration: 5, stagger: 0.8 }, 30)
 
   // Desktop callouts stay once drawn. Mobile shows one at a time, and its pin is shorter (200vh, so
   // one unit is ~1vh of scroll): each gets a ~10-unit window with a quicker draw so it can be read.

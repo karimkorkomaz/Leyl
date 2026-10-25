@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties } from 'react'
+import { useEffect, useRef, type CSSProperties, type KeyboardEvent } from 'react'
 import { brand, editions, labels, stages, type EditionId } from '../content'
 import { gsap, ScrollTrigger, SplitText, useGSAP } from '../motion/gsap'
 import { getLenis } from '../motion/lenis'
@@ -79,6 +79,18 @@ export function Editions() {
     swapTo.current?.(active)
   }, [active])
 
+  // Arrow keys move across the picker and select, like a native radio group; Tab still works.
+  const onPickerKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const step = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key]
+    const jump = e.key === 'Home' ? 0 : e.key === 'End' ? editions.length - 1 : null
+    if (step === undefined && jump === null) return
+    e.preventDefault()
+    const current = editions.findIndex((ed) => ed.id === active)
+    const next = jump ?? (current + step! + editions.length) % editions.length
+    setEdition(editions[next].id)
+    e.currentTarget.querySelectorAll<HTMLButtonElement>('.edition-option')[next]?.focus()
+  }
+
   const discover = () => {
     const finale = document.getElementById('finale')
     if (!finale) return
@@ -121,7 +133,7 @@ export function Editions() {
             <MagneticButton onClick={discover}>{labels.discover}</MagneticButton>
           </div>
 
-          <div className="editions__picker editions__reveal" role="group" aria-label={labels.chooseEdition}>
+          <div className="editions__picker editions__reveal" role="group" aria-label={labels.chooseEdition} onKeyDown={onPickerKey}>
             {editions.map((e) => (
               <button
                 key={e.id}
