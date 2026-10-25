@@ -81,12 +81,14 @@
 }
 
 .nav__link:hover,
-.nav__link:focus-visible {
+.nav__link:focus-visible,
+.nav__link.is-active {
   color: var(--ivory);
 }
 
 .nav__link:hover::after,
-.nav__link:focus-visible::after {
+.nav__link:focus-visible::after,
+.nav__link.is-active::after {
   transform: scaleX(1);
   transform-origin: left;
 }

@@ -6,6 +6,36 @@
   list-style: none;
 }
 
+/* The headline, left of the turning bottle (the callouts take this column later). */
+.flacon__intro {
+  position: absolute;
+  top: 50%;
+  left: var(--margin);
+  width: min(30rem, 30vw);
+  transform: translateY(-50%);
+}
+
+.flacon__label {
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.flacon__headline {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 1.4rem + 3.4vw, 5.25rem);
+  line-height: 0.95;
+  letter-spacing: var(--tracking-title);
+  color: var(--ivory);
+}
+
+.flacon__headline span {
+  display: block;
+}
+
 /* Desktop: text in the outer columns, its title line leveled with its anchor every frame
    (top: 0 + a translateY written from Flacon.tsx). */
 .callout {
@@ -73,6 +103,18 @@
 
 /* Mobile: one callout at a time, above (cap) or below (glass, volume) the bottle. */
 @media (max-width: 768px) {
+  .flacon__intro {
+    top: 5.5rem;
+    width: auto;
+    right: var(--margin);
+    transform: none;
+  }
+
+  .flacon__headline {
+    margin-top: 0.6rem;
+    font-size: clamp(2.5rem, 1.5rem + 5vw, 3.5rem);
+  }
+
   /* Shrink-wrapped, its edge hung on its hairline by a translateX from Flacon.tsx. */
   .callout,
   .callout[data-side] {

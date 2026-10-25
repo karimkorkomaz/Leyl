@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { callouts, type CalloutId } from '../content'
+import { callouts, flaconIntro, type CalloutId } from '../content'
 import { gsap, ScrollTrigger, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { flaconPose } from '../motion/poses'
@@ -131,13 +131,15 @@ export function Flacon() {
           els.map((c) => c.item),
           { autoAlpha: 0 },
         )
+        // Reduced motion shows every callout at once: the headline would only crowd them.
+        if (reduced) gsap.set(q('.flacon__intro'), { autoAlpha: 0 })
 
         const pose = mobile ? flaconPose.mobile : flaconPose.desktop
         // Built once fonts are in, so SplitText measures real lines and the text has its final size.
         const build = ctx.add('build', () => {
           measure()
           if (reduced) flaconStatic(root.current!, els, draw, pose)
-          else flaconTimeline(root.current!, els, draw, pose, { stacked: !mobile })
+          else flaconTimeline(root.current!, els, draw, pose, { stacked: !mobile, intro: q('.flacon__label, .flacon__headline') as HTMLElement[] })
         })
         let live = true
         loaded.then(() => live && build())
@@ -157,9 +159,15 @@ export function Flacon() {
   return (
     <section ref={root} id="flacon" className="section flacon" aria-labelledby="flacon-title">
       <h2 id="flacon-title" className="sr-only">
-        The flacon
+        {flaconIntro.label}. {flaconIntro.lines.join(' ')}
       </h2>
       <div ref={stage} className="pin flacon__stage">
+        <div className="flacon__intro" aria-hidden="true">
+          <p className="flacon__label">{flaconIntro.label}</p>
+          <p className="flacon__headline">
+            <span>{flaconIntro.lines[0]}</span> <span>{flaconIntro.lines[1]}</span>
+          </p>
+        </div>
         <ul className="flacon__callouts">
           {callouts.map((c) => (
             <li

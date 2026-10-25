@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { labels } from './content'
 import { followEdition } from './motion/editionLook'
 import { gsap, ScrollTrigger, useGSAP } from './motion/gsap'
 import { startLenis } from './motion/lenis'
@@ -45,8 +46,11 @@ export default function App() {
       <Suspense fallback={null}>
         <Stage />
       </Suspense>
+      <a className="skip-link" href="#main">
+        {labels.skip}
+      </a>
       <Nav />
-      <main className="page">
+      <main id="main" className="page" tabIndex={-1}>
         <Hero />
         <Flacon />
         <Notes />

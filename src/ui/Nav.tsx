@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { brand, nav } from '../content'
-import { gsap, useGSAP } from '../motion/gsap'
+import { gsap, ScrollTrigger, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { revealed } from '../motion/ready'
 import './Nav.css'
@@ -10,6 +10,22 @@ export function Nav() {
 
   useGSAP(
     () => {
+      // Mark the section in view: a gold hairline for the eye, aria-current for assistive tech.
+      for (const link of gsap.utils.toArray<HTMLAnchorElement>('.nav__link')) {
+        const section = document.querySelector(link.hash)
+        if (!section) continue
+        ScrollTrigger.create({
+          trigger: section,
+          start: 'top 55%',
+          end: 'bottom 45%',
+          onToggle: (self) => {
+            link.classList.toggle('is-active', self.isActive)
+            if (self.isActive) link.setAttribute('aria-current', 'true')
+            else link.removeAttribute('aria-current')
+          },
+        })
+      }
+
       const mm = gsap.matchMedia()
       mm.add(MEDIA.motionOK, (ctx) => {
         const items = gsap.utils.toArray<HTMLElement>('.nav__item')

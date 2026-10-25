@@ -134,8 +134,8 @@ export function updateAtmosphere(input: { edition: RGB; notes: number; stage: nu
   mixLook(atmosphere, rest, notesLook, Math.max(n, e))
   // In Editions the bottle sits higher (names beneath it): keep its scent shorter and quieter.
   const editionsWeight = e / (n + e + 1e-5)
-  atmosphere.particleOpacity *= 1 - 0.4 * editionsWeight
-  atmosphere.particleRise *= 1 - 0.4 * editionsWeight
+  atmosphere.particleOpacity *= 1 - 0.5 * editionsWeight
+  atmosphere.particleRise *= 1 - 0.6 * editionsWeight
 
   mix(atmosphere.liquid, ed, ed, 0)
   mix(atmosphere.baseGlow, ed, BASE_GLOW_TINT, 0.4)

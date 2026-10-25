@@ -13,6 +13,7 @@ export const brand = {
 
 /** Small interface labels. */
 export const labels = {
+  skip: 'Skip to content',
   scroll: 'Scroll',
   notes: 'The Notes',
   editions: 'The Editions',
@@ -94,6 +95,12 @@ export const stages: readonly { id: StageId; label: string; numeral: string }[] 
   { id: 'heart', label: 'Heart', numeral: '02' },
   { id: 'base', label: 'Base', numeral: '03' },
 ]
+
+/** The Flacon's headline, shown while the bottle makes its turn (before the callouts). */
+export const flaconIntro = {
+  label: 'The Flacon',
+  lines: ['Made to hold', 'the night.'],
+} as const
 
 export type CalloutId = 'base' | 'cap' | 'volume'
 

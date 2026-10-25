@@ -104,3 +104,27 @@ html.is-scroll-locked body {
     min-height: 100svh;
   }
 }
+
+/* Skip link: hidden until focused, then above everything at top-left. */
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: var(--margin);
+  z-index: calc(var(--z-preloader) + 1);
+  padding: 0.75rem 1.1rem;
+  background: var(--ivory);
+  color: var(--ink);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  transform: translateY(-160%);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.skip-link:focus-visible {
+  transform: none;
+}
+
+main:focus {
+  outline: none;
+}
