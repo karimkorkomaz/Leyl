@@ -1,8 +1,7 @@
 import { useEffect, useMemo, type Ref } from 'react'
-import { Box3, Color, type Group, type Mesh } from 'three'
+import { Box3, type Group, type Mesh } from 'three'
 import { useGLTF } from '@react-three/drei'
 import type { GLTF } from 'three-stdlib'
-import { defaultEdition, editions } from '../content'
 import { ScrollTrigger } from '../motion/gsap'
 import { markReady } from '../motion/ready'
 import { GlassMaterial, LiquidMaterial } from './materials'
@@ -21,9 +20,6 @@ type BottleProps = {
   capPivotRef: Ref<Group>
 }
 
-const liquidColor = editions.find((e) => e.id === defaultEdition)!.color
-// The thick base glows paler than the liquid: light carried down into clear glass, not more perfume.
-const baseGlowColor = `#${new Color(liquidColor).lerp(new Color('#ffe6c4'), 0.4).getHexString()}`
 
 const CAP_BAND_HEIGHT = 0.045
 
@@ -71,11 +67,11 @@ export function Bottle({ lite, capPivotRef }: BottleProps) {
         intensity={22}
         // The mobile camera sits farther back, which widens the strip's reflection on flat faces.
         width={lite ? 0.065 : 0.1}
-        baseGlow={{ color: baseGlowColor, strength: 0.55, baseTop }}
+        baseGlow={{ strength: 0.55, baseTop }}
       />
 
       <mesh name="liquid" geometry={liquid.geometry} position={liquid.position} scale={liquid.scale}>
-        <LiquidMaterial color={liquidColor} />
+        <LiquidMaterial />
       </mesh>
 
       <group name="pump">

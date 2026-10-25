@@ -3,6 +3,7 @@ import {
   AdditiveBlending,
   Color,
   MathUtils,
+  SRGBColorSpace,
   Vector2,
   Vector3,
   type BufferGeometry,
@@ -11,6 +12,7 @@ import {
   type WebGLRenderer,
 } from 'three'
 import { useFrame } from '@react-three/fiber'
+import { atmosphere } from '../motion/atmosphere'
 import { sceneState } from '../motion/sceneState'
 
 // The light sweep, evaluated analytically instead of re-rendering the environment map
@@ -107,7 +109,8 @@ type ReflectionOverlayProps = {
   intensity: number
   /** Half-width of the strip's light line, world units. Narrower reads as a harder light. */
   width?: number
-  baseGlow?: { color: string; strength: number; baseTop: number }
+  /** The thick base's inner glow; its color follows the edition (atmosphere.baseGlow). */
+  baseGlow?: { strength: number; baseTop: number }
 }
 
 export function ReflectionOverlay({ geometry, position, scale, f0, intensity, width = 0.1, baseGlow }: ReflectionOverlayProps) {
@@ -118,12 +121,12 @@ export function ReflectionOverlay({ geometry, position, scale, f0, intensity, wi
       uSweep: { value: 0 },
       uF0: { value: f0 },
       uStripColor: { value: new Color('#fff1dc').multiplyScalar(intensity) },
-      uGlowColor: { value: new Color(baseGlow?.color ?? '#000000') },
+      uGlowColor: { value: new Color() },
       uGlow: { value: baseGlow?.strength ?? 0 },
       uBaseTop: { value: baseGlow?.baseTop ?? -2 },
       uOnScreen: { value: 1 },
     }),
-    [width, f0, intensity, baseGlow?.color, baseGlow?.strength, baseGlow?.baseTop],
+    [width, f0, intensity, baseGlow?.strength, baseGlow?.baseTop],
   )
 
   const mesh = useRef<Mesh>(null)
@@ -140,6 +143,8 @@ export function ReflectionOverlay({ geometry, position, scale, f0, intensity, wi
       center.z + Math.sin(angle) * STRIP_RADIUS,
     )
     material.current.uniforms.uSweep.value = envelope(t)
+    const g = atmosphere.baseGlow
+    material.current.uniforms.uGlowColor.value.setRGB(g.r, g.g, g.b, SRGBColorSpace)
   })
 
   // Draw only in the on-screen pass. MeshTransmissionMaterial renders the scene into its own target

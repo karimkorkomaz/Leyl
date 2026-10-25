@@ -1,5 +1,8 @@
+import { useRef } from 'react'
+import { SRGBColorSpace, type MeshPhysicalMaterial, type WebGLProgramParametersWithUniforms } from 'three'
 import { MeshTransmissionMaterial } from '@react-three/drei'
-import type { WebGLProgramParametersWithUniforms } from 'three'
+import { useFrame } from '@react-three/fiber'
+import { atmosphere } from '../motion/atmosphere'
 
 /** Clear glass. MeshTransmissionMaterial on desktop; three's cheaper physical transmission when lite. */
 export function GlassMaterial({ lite }: { lite: boolean }) {
@@ -42,12 +45,22 @@ function injectBacklight(shader: WebGLProgramParametersWithUniforms) {
     )
 }
 
-/** Perfume. The studio has almost no diffuse light, so the shaped emissive carries the edition color. */
-export function LiquidMaterial({ color }: { color: string }) {
+/**
+ * Perfume. The studio has almost no diffuse light, so the shaped emissive carries the edition color,
+ * read from the atmosphere every frame (it tweens when the edition changes).
+ */
+export function LiquidMaterial() {
+  const material = useRef<MeshPhysicalMaterial>(null)
+
+  useFrame(() => {
+    const { r, g, b } = atmosphere.liquid
+    material.current?.emissive.setRGB(r, g, b, SRGBColorSpace)
+  })
+
   return (
     <meshPhysicalMaterial
+      ref={material}
       color="#000000"
-      emissive={color}
       emissiveIntensity={0.7}
       roughness={0.35}
       onBeforeCompile={injectBacklight}

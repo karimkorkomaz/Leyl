@@ -48,6 +48,12 @@ PerfumeBottle
   refracts it; DOM is only for what sits in front. (Transmission can't see DOM, so DOM-behind-glass looks like a cut-out.)
 - Section timelines write **additive layers** in scene state (`base + Σ layers`), one layer per section, so two scrubbed
   timelines never write the same value (avoids snaps when `scrub` catch-up tweens overlap at section boundaries).
+- The active edition is React state in `src/state/edition.ts` (`useEdition`, `setEdition`). It is mirrored into
+  `sceneState.look.edition` (sRGB, crossfaded by `motion/editionLook.ts`). GSAP writes only scalars to `sceneState.look`
+  (`notes` 0–1, `stage` 0–2); `motion/atmosphere.ts` turns those into aura, scent, liquid, base-glow and floor-pool
+  colors once per frame. Never tween colors in individual components.
+- A section whose text depends on the edition uses two timelines over the same scroll range: the scene (built once)
+  and the text (rebuilt per edition, keyed DOM), so an edition change never re-scrubs the bottle (see The Notes).
 - A single mutable scene-state object (e.g. `src/motion/sceneState.ts`) holds animated values: bottle rotation/position/scale, cap lift, camera position/target, light sweep, liquid color, aura color.
 - GSAP timelines (with ScrollTrigger) write to that object. `useFrame` reads it and applies it to the scene. **No React state updates per frame.**
 - Lenis drives scrolling and is synced to ScrollTrigger:
@@ -128,7 +134,9 @@ Implemented in `src/scene/materials.tsx`, `Lighting.tsx`, `ReflectionOverlay.tsx
 - `dpr={[1, 1.75]}` desktop. Pause rendering when the tab is hidden.
 - Hero visible in under 2.5s on a fast connection; preloader covers model/font loading.
 - Particles: instanced or a single `Points` object, ≤ 800 points.
-- The 3D stage is a lazy chunk (`App.tsx`); the GLB is preloaded in `index.html`. Keep the entry chunk lean.
+- The 3D stage is a lazy chunk (`App.tsx`); the GLB is preloaded in `index.html`. Keep the entry chunk lean:
+  modules the entry imports (`motion/`, `state/`, `sections/`, `ui/`, `content.ts`) must never import `three`, or all of
+  three.js moves into the first download (check the build output: entry ≈ 128 KB gzip, Stage ≈ 335 KB).
 - **Measure frame cost, not rAF rate.** When the Playwright browser window is covered by another window, Chrome
   throttles any page that renders to ~1 fps, which looks like a regression but isn't. Benchmark with
   `__leyl.three.set({ frameloop: 'never' })`, then time `__leyl.three.advance(t)` + `gl.getContext().finish()`

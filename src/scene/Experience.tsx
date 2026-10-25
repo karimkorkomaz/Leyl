@@ -5,6 +5,7 @@ import { Backdrop } from './Backdrop'
 import { Bottle } from './Bottle'
 import { Floor } from './Floor'
 import { Lighting } from './Lighting'
+import { Particles } from './Particles'
 import { useSceneDriver } from './useSceneDriver'
 import { Wordmark } from './Wordmark'
 
@@ -22,6 +23,8 @@ export function Experience({ mobile }: { mobile: boolean }) {
       <group ref={pose}>
         <Backdrop />
         <Floor />
+        {/* Not inside the float/spin groups: the scent rises from where the bottle stands. */}
+        <Particles mobile={mobile} />
         <group ref={lift}>
           <group ref={spin}>
             <Bottle lite={mobile} capPivotRef={capPivot} />

@@ -51,8 +51,11 @@ Principles borrowed (not layouts):
 - Hero: tagline set bottom-left in two lines ("Wear the / night.", second line indented), scroll cue
   bottom-right, keeping the bottle's axis clear. (Alternative if preferred: centered under the bottle.)
 
+- The Notes (built): the scent rises from the cap in soft ribbons that curl toward the words; tone runs light and
+  quick (Top) to deep and slow (Base). Everything (liquid, aura, scent, floor pool) follows the active edition.
+  The persistent edition control is built with the Editions section; until then the edition only changes in dev.
+
 Proposed defaults (not yet confirmed; revisit after screenshots):
-- The Notes: "scent" particles rise in trails from the bottle.
 - Bottle rest angle ~−30° so two glass faces catch the strip lights; all rotations are relative to it.
 - Editions: bottle returns to center, slightly lowered, edition names in a row beneath it.
 - Floor: a faint warm light pool under the bottle with the contact shadow inside it.

@@ -8,8 +8,9 @@ import App from './App.tsx'
 import { dev } from './lib/dev'
 import { gsap } from './motion/gsap'
 import { sceneState } from './motion/sceneState'
+import { setEdition } from './state/edition'
 
-if (import.meta.env.DEV) Object.assign(window, { __leyl: Object.assign(dev, { gsap, sceneState }) })
+if (import.meta.env.DEV) Object.assign(window, { __leyl: Object.assign(dev, { gsap, sceneState, setEdition }) })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

@@ -1,0 +1,195 @@
+.notes {
+  --len: var(--len-notes);
+}
+
+/* Desktop: the bottle stands left (drifted there by the Flacon); the words own the right half. */
+.notes__column {
+  position: absolute;
+  inset: 0 var(--margin) 0 52%;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: clamp(6rem, 4rem + 6vh, 9rem) 0 clamp(3rem, 2rem + 4vh, 5rem);
+}
+
+.notes__caption-mask {
+  overflow: clip;
+}
+
+.notes__caption {
+  display: flex;
+  align-items: baseline;
+  gap: 1.1rem;
+}
+
+.notes__label {
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.notes__edition {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  color: var(--ivory);
+}
+
+.notes__arabic {
+  font-family: var(--font-arabic);
+  font-size: 1.125rem;
+  color: var(--gold);
+}
+
+/* The three stages share one cell and cross over each other. */
+.notes__steps {
+  display: grid;
+  align-items: center;
+  list-style: none;
+}
+
+.notes__step {
+  position: relative;
+  grid-area: 1 / 1;
+}
+
+.notes__word {
+  position: relative;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(6rem, 2rem + 10vw, 14rem);
+  line-height: 0.82;
+  letter-spacing: var(--tracking-display);
+  color: var(--ivory);
+}
+
+/* The large faint numeral: a gold hairline outline, set behind and above the word. */
+.notes__numeral {
+  position: absolute;
+  right: 0;
+  bottom: 62%;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(9rem, 4rem + 13vw, 20rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(201 169 110 / 0.32);
+  user-select: none;
+}
+
+.notes__list {
+  margin-top: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  padding-left: 0.4rem;
+  list-style: none;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1.1rem + 0.9vw, 2.125rem);
+  line-height: 1.25;
+  color: var(--ivory);
+}
+
+/* Mobile: the bottle stays centered (smaller); the word sits above it, the notes below. */
+@media (max-width: 768px) {
+  .notes__column {
+    inset: 0 var(--margin);
+    padding: 5.25rem 0 2.5rem;
+  }
+
+  .notes__steps {
+    align-items: stretch;
+  }
+
+  .notes__step {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+  }
+
+  .notes__word {
+    font-size: clamp(4.25rem, 2rem + 12vw, 6rem);
+  }
+
+  .notes__numeral {
+    top: 0;
+    bottom: auto;
+    font-size: clamp(6.5rem, 4rem + 14vw, 9rem);
+  }
+
+  .notes__list {
+    margin-top: 0;
+    padding-left: 0;
+    font-size: 1.5rem;
+    text-align: right;
+  }
+}
+
+/* Reduced motion: no pin; the three stages stand together. The bottle never drifted left (that move
+   lives in the Flacon's scrub), so the column sits to the right of a centered bottle. */
+.notes[data-layout='list'] .notes__column {
+  left: 64%;
+}
+
+.notes[data-layout='list'] .notes__steps {
+  align-content: center;
+  gap: 2.5rem;
+}
+
+.notes[data-layout='list'] .notes__step {
+  grid-area: auto;
+}
+
+.notes[data-layout='list'] .notes__word {
+  font-size: clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+.notes[data-layout='list'] .notes__numeral {
+  font-size: clamp(4rem, 3rem + 4vw, 7rem);
+  bottom: 30%;
+}
+
+.notes[data-layout='list'] .notes__list {
+  margin-top: 0.75rem;
+  font-size: 1.25rem;
+}
+
+/* Reduced motion on mobile: a compact list over a soft ink scrim below the bottle. */
+@media (max-width: 768px) {
+  .notes[data-layout='list'] .notes__column {
+    inset: auto 0 0;
+    padding: 5rem var(--margin) 2.25rem;
+    background: linear-gradient(to bottom, transparent, rgb(10 9 8 / 0.88) 35%);
+  }
+
+  .notes[data-layout='list'] .notes__steps {
+    gap: 0.9rem;
+    margin-top: 1rem;
+  }
+
+  .notes[data-layout='list'] .notes__step {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1rem;
+    padding-top: 0;
+  }
+
+  .notes[data-layout='list'] .notes__numeral {
+    display: none;
+  }
+
+  .notes[data-layout='list'] .notes__word {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .notes[data-layout='list'] .notes__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 0.6rem;
+    margin-top: 0;
+    font-size: 1.125rem;
+    text-align: left;
+  }
+}

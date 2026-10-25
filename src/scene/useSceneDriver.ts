@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { MathUtils, Vector3, type Group, type PerspectiveCamera } from 'three'
 import { useFrame } from '@react-three/fiber'
+import { updateAtmosphere } from '../motion/atmosphere'
 import { float } from '../motion/poses'
 import { layerList, sceneState } from '../motion/sceneState'
 import { anchorIds, anchorPoints, emitAnchors, screenAnchors } from './anchors'
@@ -23,7 +24,9 @@ export function useSceneDriver() {
   /** cap hinge at the cap's base edge. */
   const capPivotRef = useRef<Group>(null)
 
+  // Registered before any child's useFrame, so the atmosphere is fresh when they read it.
   useFrame((state) => {
+    updateAtmosphere(sceneState.look)
     const { base, idle } = sceneState
     let x = base.x
     let y = base.y

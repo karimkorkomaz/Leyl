@@ -3,7 +3,18 @@
 //
 // Final pose = base + Σ layers (+ idle float). Each section's timeline owns exactly one layer and
 // writes deltas into it, so two scrubbed timelines never write the same value.
+// No three.js import here: this module is in the entry chunk (App imports it), and three must stay in
+// the lazily loaded 3D chunk.
+import { defaultEdition, editions } from '../content'
 import { heroPose } from './poses'
+
+const defaultEditionColor = editions.find((e) => e.id === defaultEdition)!.color
+
+/** A #rrggbb color as plain sRGB 0–1 numbers GSAP can tween (sRGB channels are just bytes / 255). */
+export function srgb(hex: string) {
+  const n = parseInt(hex.slice(1), 16)
+  return { r: ((n >> 16) & 255) / 255, g: ((n >> 8) & 255) / 255, b: (n & 255) / 255 }
+}
 
 export type Layer = {
   x: number
@@ -34,6 +45,17 @@ export const sceneState = {
     float: 1,
     /** 0–1 progress of the light strip across the glass; 0 and 1 are both "off". */
     sweep: 0,
+    /** 0–1 multiplier on the drifting scent particles (0 under reduced motion). */
+    scent: 1,
+  },
+  /** Color and atmosphere inputs. motion/atmosphere.ts turns these into aura/particle/liquid values. */
+  look: {
+    /** Active edition's liquid color, sRGB 0–1. Tweened when the edition changes. */
+    edition: srgb(defaultEditionColor),
+    /** 0–1: how much of The Notes' atmosphere shows (0 = the studio's rest look). */
+    notes: 0,
+    /** Continuous stage of The Notes: 0 Top, 1 Heart, 2 Base. */
+    stage: 0,
   },
   /** The giant in-scene LEYL behind the bottle. Defaults are the final, at-rest state. */
   wordmark: {

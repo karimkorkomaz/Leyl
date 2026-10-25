@@ -60,6 +60,17 @@ export const flaconPose: Record<'desktop' | 'mobile', FlaconPose> = {
   },
 }
 
+/**
+ * The Notes: the bottle (already drifted left by the Flacon on desktop) turns a slow quarter turn,
+ * which a square bottle shows as returning to where it began. The camera steps back and looks a
+ * little higher, so the scent has room to rise above the cap; on mobile, further, so the stage word
+ * fits above the bottle and the notes below it.
+ */
+export const notesPose: Record<'desktop' | 'mobile', { turn: number; camZ: number; targetY: number }> = {
+  desktop: { turn: Math.PI / 2, camZ: 1.2, targetY: 0.45 },
+  mobile: { turn: Math.PI / 2, camZ: 3.2, targetY: 0.3 },
+}
+
 /** The bottle starts this far below its rest pose and rises into place on load. */
 export const introDrop = -0.35
 

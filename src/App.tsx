@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { followEdition } from './motion/editionLook'
 import { gsap, ScrollTrigger, useGSAP } from './motion/gsap'
 import { startLenis } from './motion/lenis'
 import { MEDIA } from './motion/media'
@@ -22,13 +23,16 @@ export default function App() {
 
     mm.add(MEDIA.motionOK, () => {
       sceneState.idle.float = 1
+      sceneState.idle.scent = 1
       return startLenis()
     })
     mm.add(MEDIA.reducedMotion, () => {
       sceneState.idle.float = 0
+      sceneState.idle.scent = 0
     })
 
     document.fonts.ready.then(() => ScrollTrigger.refresh())
+    return followEdition()
   })
 
   return (
