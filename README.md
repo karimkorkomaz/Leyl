@@ -1,75 +1,50 @@
-# React + TypeScript + Vite
+# LEYL — Wear the night.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A concept site for **LEYL** (ليل, "night"), a fictional perfume house from Beirut: one scroll-driven,
+real-time 3D story in a black studio where light is the main material.
 
-Currently, two official plugins are available:
+Hero → The Flacon (the cap lifts, callouts draw themselves) → The Notes (Top, Heart, Base, with the
+scent rising in the edition's color) → The Editions (Anbar, Ward, Dukhan) → Finale.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A concept by Ahmad El Amine.
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Vite, React 19, TypeScript · three.js with @react-three/fiber and drei · GSAP (ScrollTrigger,
+SplitText) · Lenis.
 
-## Expanding the ESLint configuration
+## Commands
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev       # dev server
+npm run lint      # must pass
+npm run build     # type-check + production build (must pass)
+npm run preview   # serve the production build locally
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Deploy (Vercel)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+`vercel.json` is ready (Vite preset, `dist`, long-lived caching for hashed assets).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Dashboard: push the repo to GitHub, then "Add New → Project" in Vercel and import it. No settings to change.
+- CLI: `npx vercel` (preview), then `npx vercel --prod`.
 
-```
+After the first deploy, set `og:url` and make `og:image` absolute in `index.html` with the production domain.
+
+## How it works
+
+- One fixed, opaque canvas behind the DOM. Anything that appears behind the bottle (the LEYL
+  wordmark, the aura, the scent) lives in the 3D scene so the glass refracts it.
+- GSAP timelines write plain numbers to a single scene state (`src/motion/sceneState.ts`) as
+  additive per-section layers; one `useFrame` composes and applies them. No React state per frame.
+- One atmosphere model (`src/motion/atmosphere.ts`) derives the aura, scent, liquid and floor light
+  from the active edition, so switching edition re-tints the whole room.
+- `CLAUDE.md` documents the architecture, art direction and the measured performance decisions;
+  `BRIEF.md` holds the creative brief and the decisions made along the way.
+
+## Credits
+
+Perfume Bottle 3D model by [lamborado](https://sketchfab.com/3d-models/perfume-bottle-e263d9953f67444f8fa89530474126b4),
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) (modified: materials replaced in code).
+Typefaces: Cormorant Garamond, Manrope, Amiri (SIL Open Font License).
