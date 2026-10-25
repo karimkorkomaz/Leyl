@@ -81,6 +81,16 @@ export const editionsPose: Record<'desktop' | 'mobile', { x: number; camZ: numbe
   mobile: { x: 0, camZ: 3.6, targetY: -0.35 },
 }
 
+/**
+ * Finale, relative to the hero pose: a last quarter turn back to the opening angle, and the camera
+ * steps back and looks lower, so the bottle stands in the upper half above the closing line.
+ */
+export const finalePose: Record<'desktop' | 'mobile', { turn: number; camZ: number; targetY: number }> = {
+  // Bottle center ~30% from the top, leaving the lower half for the line and the credits.
+  desktop: { turn: Math.PI / 2, camZ: 3.2, targetY: -1.5 },
+  mobile: { turn: Math.PI / 2, camZ: 5.5, targetY: -2.5 },
+}
+
 /** The bottle starts this far below its rest pose and rises into place on load. */
 export const introDrop = -0.35
 

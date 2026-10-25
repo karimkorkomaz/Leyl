@@ -14,6 +14,16 @@
   pointer-events: auto;
 }
 
+/* A soft ink fade behind the nav, so section text scrolling under it never collides with it. */
+.nav::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -2.5rem;
+  z-index: -1;
+  background: linear-gradient(to bottom, rgb(10 9 8 / 0.92), rgb(10 9 8 / 0.6) 55%, transparent);
+  pointer-events: none;
+}
+
 .nav__logo {
   display: inline-flex;
   align-items: baseline;

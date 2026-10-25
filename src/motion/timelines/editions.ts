@@ -9,7 +9,7 @@ const EASE_3D = 'sine.inOut'
  *  enter: the bottle comes back to center, the camera steps back and lower, the scent rises.
  *  leave: only the scent fades. The pose stays: the Finale builds on it.
  */
-export function editionsScene(root: HTMLElement, pose: { x: number; camZ: number; targetY: number }) {
+export function editionsScene(root: HTMLElement, content: HTMLElement, pose: { x: number; camZ: number; targetY: number }) {
   const enter = window.innerHeight
   const hold = Math.max(root.offsetHeight - window.innerHeight, 1)
   const leave = window.innerHeight
@@ -20,6 +20,8 @@ export function editionsScene(root: HTMLElement, pose: { x: number; camZ: number
   tl.to(sceneState.layers.editions, { x: pose.x, camZ: pose.camZ, targetY: pose.targetY, duration: enter, ease: EASE_3D }, 0)
   tl.fromTo(sceneState.look, { editions: 0 }, { editions: 1, duration: enter, ease: EASE_3D }, 0)
   tl.to(sceneState.look, { editions: 0, duration: leave, ease: EASE_3D }, enter + hold)
+  // The words clear early in the leave, so they never slide across the bottle as it moves on.
+  tl.to(content, { autoAlpha: 0, y: -40, duration: leave * 0.35 }, enter + hold)
   return tl
 }
 

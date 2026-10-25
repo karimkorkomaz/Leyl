@@ -106,9 +106,11 @@ export const callouts: readonly { id: CalloutId; title: string; body: string }[]
 
 export const credits = {
   concept: 'A concept by Ahmad El Amine',
+  // Rendered as "Perfume Bottle 3D model by lamborado, CC BY 4.0" (required by the model's license).
   model: {
-    text: 'Perfume Bottle 3D model by lamborado, CC BY 4.0',
+    title: 'Perfume Bottle 3D model by lamborado',
     href: 'https://sketchfab.com/3d-models/perfume-bottle-e263d9953f67444f8fa89530474126b4',
+    license: 'CC BY 4.0',
     licenseHref: 'https://creativecommons.org/licenses/by/4.0/',
   },
 } as const

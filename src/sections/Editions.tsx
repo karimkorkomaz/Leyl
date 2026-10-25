@@ -31,7 +31,7 @@ export function Editions() {
         gsap.set(blocks, { autoAlpha: 0 })
         gsap.set(q('.editions__reveal'), { autoAlpha: 0, y: reduced ? 0 : 16 })
         if (reduced) editionsStatic(root.current!)
-        else editionsScene(root.current!, mobile ? editionsPose.mobile : editionsPose.desktop)
+        else editionsScene(root.current!, q('.editions__content')[0] as HTMLElement, mobile ? editionsPose.mobile : editionsPose.desktop)
 
         const build = ctx.add('build', () => {
           const details = new Map<EditionId, DetailEls>()
@@ -90,53 +90,55 @@ export function Editions() {
   return (
     <section ref={root} id="editions" className="section editions" aria-labelledby="editions-title">
       <div className="pin editions__stage">
-        <h2 id="editions-title" className="editions__caption editions__reveal">
-          {labels.editions}
-        </h2>
+        <div className="editions__content">
+          <h2 id="editions-title" className="editions__caption editions__reveal">
+            {labels.editions}
+          </h2>
 
-        <div className="editions__details">
-          {editions.map((e) => (
-            <div key={e.id} className="edition-detail" data-edition={e.id} aria-hidden={e.id !== active}>
-              <p className="edition-detail__arabic" lang="ar">
-                {e.arabic}
-              </p>
-              <p className="edition-detail__line edition-detail__split">{e.line}</p>
-              <p className="edition-detail__mood edition-detail__split">{e.mood}</p>
-              <dl className="edition-detail__notes">
-                {stages.map((s) => (
-                  <div key={s.id} className="edition-detail__row edition-detail__split">
-                    <dt>{s.label}</dt>
-                    <dd>{e.notes[s.id].map((n, i) => (i ? n.toLowerCase() : capitalize(n))).join(', ')}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-          ))}
-        </div>
+          <div className="editions__details">
+            {editions.map((e) => (
+              <div key={e.id} className="edition-detail" data-edition={e.id} aria-hidden={e.id !== active}>
+                <p className="edition-detail__arabic" lang="ar">
+                  {e.arabic}
+                </p>
+                <p className="edition-detail__line edition-detail__split">{e.line}</p>
+                <p className="edition-detail__mood edition-detail__split">{e.mood}</p>
+                <dl className="edition-detail__notes">
+                  {stages.map((s) => (
+                    <div key={s.id} className="edition-detail__row edition-detail__split">
+                      <dt>{s.label}</dt>
+                      <dd>{e.notes[s.id].map((n, i) => (i ? n.toLowerCase() : capitalize(n))).join(', ')}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ))}
+          </div>
 
-        <div className="editions__buy editions__reveal">
-          <p className="editions__price">{brand.price}</p>
-          <p className="editions__format">{labels.format}</p>
-          <MagneticButton onClick={discover}>{labels.discover}</MagneticButton>
-        </div>
+          <div className="editions__buy editions__reveal">
+            <p className="editions__price">{brand.price}</p>
+            <p className="editions__format">{labels.format}</p>
+            <MagneticButton onClick={discover}>{labels.discover}</MagneticButton>
+          </div>
 
-        <div className="editions__picker editions__reveal" role="group" aria-label={labels.chooseEdition}>
-          {editions.map((e) => (
-            <button
-              key={e.id}
-              type="button"
-              className="edition-option"
-              aria-pressed={e.id === active}
-              onClick={() => setEdition(e.id)}
-              style={{ '--swatch': e.color } as CSSProperties}
-            >
-              <span className="edition-option__swatch" aria-hidden="true" />
-              <span className="edition-option__name">{e.name}</span>
-              <span className="edition-option__arabic" lang="ar">
-                {e.arabic}
-              </span>
-            </button>
-          ))}
+          <div className="editions__picker editions__reveal" role="group" aria-label={labels.chooseEdition}>
+            {editions.map((e) => (
+              <button
+                key={e.id}
+                type="button"
+                className="edition-option"
+                aria-pressed={e.id === active}
+                onClick={() => setEdition(e.id)}
+                style={{ '--swatch': e.color } as CSSProperties}
+              >
+                <span className="edition-option__swatch" aria-hidden="true" />
+                <span className="edition-option__name">{e.name}</span>
+                <span className="edition-option__arabic" lang="ar">
+                  {e.arabic}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

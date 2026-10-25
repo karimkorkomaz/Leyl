@@ -7,7 +7,6 @@ import { sceneState } from './motion/sceneState'
 import { Editions } from './sections/Editions'
 import { Finale } from './sections/Finale'
 import { Flacon } from './sections/Flacon'
-import { Footer } from './sections/Footer'
 import { Hero } from './sections/Hero'
 import { Notes } from './sections/Notes'
 import { EditionControl } from './ui/EditionControl'
@@ -50,7 +49,6 @@ export default function App() {
         <Finale />
       </main>
       <EditionControl />
-      <Footer />
     </>
   )
 }

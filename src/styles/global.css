@@ -98,20 +98,3 @@ button {
     min-height: 100svh;
   }
 }
-
-/* Placeholder footer until the Finale step */
-.footer {
-  position: relative;
-  z-index: var(--z-content);
-  display: grid;
-  gap: 0.5rem;
-  padding: 4rem var(--margin);
-  background: var(--ink);
-  color: var(--stone);
-  font-size: var(--fs-label);
-  letter-spacing: 0.04em;
-}
-
-.footer a {
-  border-bottom: 1px solid var(--hairline);
-}

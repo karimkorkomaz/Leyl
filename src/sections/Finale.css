@@ -1,0 +1,37 @@
+.finale {
+  --len: var(--len-finale);
+}
+
+/* The closing poster: the line spans the width at the foot of the bottle; the credits run along
+   the bottom edge. */
+.finale__stage {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.finale__line {
+  margin-bottom: 6vh;
+  padding: 0 var(--margin);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3.5rem, 0.5rem + 11.5vw, 14rem);
+  line-height: 0.9;
+  letter-spacing: var(--tracking-display);
+  white-space: nowrap;
+  color: var(--ivory);
+}
+
+.finale__stage .footer {
+  align-self: stretch;
+}
+
+@media (max-width: 768px) {
+  .finale__line {
+    margin-bottom: 5vh;
+    font-size: clamp(3.5rem, 1rem + 15vw, 6rem);
+    white-space: normal;
+    text-align: center;
+  }
+}
