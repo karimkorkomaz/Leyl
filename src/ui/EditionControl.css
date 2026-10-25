@@ -1,0 +1,90 @@
+.edition-control {
+  position: fixed;
+  bottom: clamp(1.25rem, 0.8rem + 1.5vh, 2.25rem);
+  left: var(--margin);
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  /* Hidden: also unfocusable (visibility), switched off only after the fade. */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out),
+    visibility 0s linear 0.6s;
+}
+
+.edition-control.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out),
+    visibility 0s;
+}
+
+.edition-control__label {
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.edition-control__dots {
+  display: flex;
+  gap: 0.15rem;
+}
+
+/* 28px hit area around a 9px swatch. */
+.edition-control__dot {
+  position: relative;
+  width: 28px;
+  height: 28px;
+}
+
+.edition-control__dot::before {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  border: 1px solid var(--swatch);
+  transition:
+    background-color 0.4s var(--ease-out),
+    transform 0.4s var(--ease-out);
+}
+
+.edition-control__dot:hover::before {
+  transform: scale(1.25);
+}
+
+.edition-control__dot[aria-pressed='true']::before {
+  background: var(--swatch);
+  box-shadow: 0 0 0 3px rgb(201 169 110 / 0.18);
+}
+
+.edition-control__name {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--ivory);
+}
+
+/* Mobile: the notes list sits bottom-right; dots only, the filled one already names the choice. */
+@media (max-width: 768px) {
+  .edition-control__name {
+    display: none;
+  }
+}
+
+/* Reduced motion on mobile, The Notes is a list along the bottom: sit under the nav instead. */
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .edition-control {
+    top: 4.75rem;
+    bottom: auto;
+  }
+}

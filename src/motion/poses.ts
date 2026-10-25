@@ -71,6 +71,16 @@ export const notesPose: Record<'desktop' | 'mobile', { turn: number; camZ: numbe
   mobile: { turn: Math.PI / 2, camZ: 3.2, targetY: 0.3 },
 }
 
+/**
+ * Editions: the bottle comes back to center (cancelling the Flacon's drift; that part persists into
+ * the Finale) and the camera steps back and looks lower, so the bottle sits a little above center
+ * with the edition names in a row beneath it.
+ */
+export const editionsPose: Record<'desktop' | 'mobile', { x: number; camZ: number; targetY: number }> = {
+  desktop: { x: 0.22, camZ: 1.8, targetY: -0.55 },
+  mobile: { x: 0, camZ: 3.6, targetY: -0.35 },
+}
+
 /** The bottle starts this far below its rest pose and rises into place on load. */
 export const introDrop = -0.35
 

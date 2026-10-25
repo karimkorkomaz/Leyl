@@ -116,13 +116,26 @@ function buildPresets(ed: RGB) {
   setScalars(base, 0.9, 0.82, 0.45, 0.5, 1.15, 0.7)
 }
 
-export function updateAtmosphere(input: { edition: RGB; notes: number; stage: number }) {
+/** How much of the Heart look the Editions section shows: a fainter scent in the edition's color. */
+const EDITIONS_SHARE = 0.55
+
+const clamp01 = (v: number) => Math.min(Math.max(v, 0), 1)
+
+export function updateAtmosphere(input: { edition: RGB; notes: number; stage: number; editions: number }) {
   const ed = input.edition
   buildPresets(ed)
-  const s = Math.min(Math.max(input.stage, 0), 2)
+  // The Notes and Editions each own an input; they never overlap on screen, but scrub catch-up can
+  // briefly run both, so blend them (weighted stage) rather than letting one overwrite the other.
+  const n = clamp01(input.notes)
+  const e = clamp01(input.editions) * EDITIONS_SHARE
+  const s = Math.min(Math.max((n * input.stage + e * 1) / (n + e + 1e-5), 0), 2)
   if (s <= 1) mixLook(notesLook, top, heart, s)
   else mixLook(notesLook, heart, base, s - 1)
-  mixLook(atmosphere, rest, notesLook, Math.min(Math.max(input.notes, 0), 1))
+  mixLook(atmosphere, rest, notesLook, Math.max(n, e))
+  // In Editions the bottle sits higher (names beneath it): keep its scent shorter and quieter.
+  const editionsWeight = e / (n + e + 1e-5)
+  atmosphere.particleOpacity *= 1 - 0.4 * editionsWeight
+  atmosphere.particleRise *= 1 - 0.4 * editionsWeight
 
   mix(atmosphere.liquid, ed, ed, 0)
   mix(atmosphere.baseGlow, ed, BASE_GLOW_TINT, 0.4)

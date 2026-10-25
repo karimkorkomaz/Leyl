@@ -1,0 +1,248 @@
+.editions {
+  --len: var(--len-editions);
+}
+
+.editions__stage {
+  padding: 0 var(--margin);
+}
+
+.editions__caption {
+  position: absolute;
+  top: clamp(6rem, 4rem + 6vh, 9rem);
+  left: var(--margin);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* Left: the active edition's Arabic name, its line, mood and notes. The three blocks share a cell. */
+.editions__details {
+  position: absolute;
+  top: 30%;
+  left: var(--margin);
+  display: grid;
+  width: min(25rem, 30vw);
+}
+
+.edition-detail {
+  grid-area: 1 / 1;
+}
+
+.edition-detail__arabic {
+  font-family: var(--font-arabic);
+  font-size: clamp(4.5rem, 2.5rem + 4.5vw, 8rem);
+  line-height: 1.35;
+  text-align: left;
+  color: var(--ivory);
+}
+
+.edition-detail__line {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.5rem, 1.1rem + 0.8vw, 2rem);
+  line-height: 1.2;
+  color: var(--ivory);
+}
+
+.edition-detail__mood {
+  margin-top: 0.9rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.edition-detail__notes {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+}
+
+.edition-detail__row {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.edition-detail__row dt {
+  flex: 0 0 3.75rem;
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.edition-detail__row dd {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  color: var(--ivory);
+}
+
+/* Right: price and the one call to action. */
+.editions__buy {
+  position: absolute;
+  top: 40%;
+  right: var(--margin);
+  display: grid;
+  justify-items: end;
+  text-align: right;
+}
+
+.editions__price {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.75rem, 2rem + 1.6vw, 3.75rem);
+  line-height: 1;
+  color: var(--ivory);
+}
+
+.editions__format {
+  margin: 0.6rem 0 1.75rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* Beneath the bottle: the three editions as real buttons. */
+.editions__picker {
+  position: absolute;
+  right: 0;
+  bottom: clamp(2.5rem, 1.5rem + 3vh, 4rem);
+  left: 0;
+  display: flex;
+  justify-content: center;
+  gap: clamp(2rem, 1rem + 3vw, 4.5rem);
+}
+
+.edition-option {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: baseline;
+  column-gap: 0.7rem;
+  padding: 0.5rem 0.25rem 0.75rem;
+  text-align: left;
+  color: var(--stone);
+  transition: color 0.5s var(--ease-out);
+}
+
+.edition-option__swatch {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: 1px solid var(--swatch);
+  transform: translateY(-0.3rem);
+  transition: background-color 0.5s var(--ease-out);
+}
+
+.edition-option__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 0.7vw, 2rem);
+  line-height: 1;
+}
+
+.edition-option__arabic {
+  grid-column: 2;
+  font-family: var(--font-arabic);
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gold);
+  opacity: 0.55;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+/* A gold hairline under the active edition, drawn in from the left. */
+.edition-option::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.edition-option:hover,
+.edition-option:focus-visible,
+.edition-option[aria-pressed='true'] {
+  color: var(--ivory);
+}
+
+.edition-option[aria-pressed='true'] .edition-option__swatch {
+  background: var(--swatch);
+}
+
+.edition-option[aria-pressed='true'] .edition-option__arabic {
+  opacity: 1;
+}
+
+.edition-option[aria-pressed='true']::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Mobile: name and line above the bottle; picker, price and button below it. */
+@media (max-width: 768px) {
+  .editions__caption {
+    top: 5.25rem;
+  }
+
+  .editions__details {
+    top: 7.25rem;
+    width: auto;
+    right: var(--margin);
+  }
+
+  .edition-detail__arabic {
+    font-size: 3.5rem;
+    line-height: 1.3;
+  }
+
+  .edition-detail__line {
+    margin-top: 0;
+    font-size: 1.375rem;
+  }
+
+  .edition-detail__mood,
+  .edition-detail__notes,
+  .editions__format {
+    display: none;
+  }
+
+  .editions__picker {
+    bottom: 7rem;
+    gap: 1.5rem;
+  }
+
+  .edition-option__name {
+    font-size: 1.375rem;
+  }
+
+  .editions__buy {
+    top: auto;
+    bottom: 1.75rem;
+    left: var(--margin);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .editions__price {
+    font-size: 2.25rem;
+  }
+
+  .magnetic {
+    height: 3rem;
+    padding: 0 1.75rem;
+  }
+}

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { stages } from '../content'
+import { labels, stages } from '../content'
 import { gsap, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { notesPose } from '../motion/poses'
@@ -67,7 +67,7 @@ export function Notes() {
         <div ref={column} key={edition.id} className="notes__column">
           <div className="notes__caption-mask">
             <p className="notes__caption" aria-hidden="true">
-              <span className="notes__label">The Notes</span>
+              <span className="notes__label">{labels.notes}</span>
               <span className="notes__edition">{edition.name}</span>
               <span className="notes__arabic" lang="ar">
                 {edition.arabic}

@@ -11,6 +11,20 @@ export const brand = {
   price: '$185',
 } as const
 
+/** Small interface labels. */
+export const labels = {
+  scroll: 'Scroll',
+  notes: 'The Notes',
+  editions: 'The Editions',
+  chooseEdition: 'Choose an edition',
+  edition: 'Edition',
+  discover: 'Discover',
+  format: `${brand.product}, ${brand.volume}`,
+} as const
+
+/** The hero tagline as set: two lines, the second indented. */
+export const taglineLines = ['Wear the', 'night.'] as const
+
 export const nav = [
   { label: 'Editions', href: '#editions' },
   { label: 'The Notes', href: '#notes' },

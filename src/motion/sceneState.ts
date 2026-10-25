@@ -56,6 +56,8 @@ export const sceneState = {
     notes: 0,
     /** Continuous stage of The Notes: 0 Top, 1 Heart, 2 Base. */
     stage: 0,
+    /** 0–1: the Editions section's own, fainter scent (its own input so it never fights `notes`). */
+    editions: 0,
   },
   /** The giant in-scene LEYL behind the bottle. Defaults are the final, at-rest state. */
   wordmark: {

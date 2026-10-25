@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { brand } from '../content'
+import { brand, labels, taglineLines } from '../content'
 import { gsap, useGSAP } from '../motion/gsap'
 import { MEDIA } from '../motion/media'
 import { introReady } from '../motion/ready'
@@ -43,10 +43,10 @@ export function Hero() {
       </h1>
       <div ref={foot} className="hero__foot">
         <p ref={tagline} className="hero__tagline" aria-hidden="true">
-          <span className="hero__line">Wear the</span> <span className="hero__line">night.</span>
+          <span className="hero__line">{taglineLines[0]}</span> <span className="hero__line">{taglineLines[1]}</span>
         </p>
         <div ref={cue} className="hero__cue" aria-hidden="true">
-          <span>Scroll</span>
+          <span>{labels.scroll}</span>
           <span className="hero__cue-track">
             <span className="hero__cue-line" />
           </span>

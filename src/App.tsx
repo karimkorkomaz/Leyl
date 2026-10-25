@@ -10,6 +10,7 @@ import { Flacon } from './sections/Flacon'
 import { Footer } from './sections/Footer'
 import { Hero } from './sections/Hero'
 import { Notes } from './sections/Notes'
+import { EditionControl } from './ui/EditionControl'
 import { Nav } from './ui/Nav'
 
 // three.js and R3F are most of the bundle: load them as their own chunk so the DOM (and later the
@@ -48,6 +49,7 @@ export default function App() {
         <Editions />
         <Finale />
       </main>
+      <EditionControl />
       <Footer />
     </>
   )
