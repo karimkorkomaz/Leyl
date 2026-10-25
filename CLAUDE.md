@@ -103,6 +103,8 @@ Implemented in `src/scene/materials.tsx`, `Lighting.tsx`, `ReflectionOverlay.tsx
   on-screen only (excluded from MTM's refraction buffer) and use polygonOffset to avoid z-fighting the glass.
 - Behind the bottle: an opaque warm `Backdrop` glow (opaque so the mobile glass refracts it); on the floor an additive
   light pool plus `<ContactShadows>`. Glow textures have no mipmaps (they caused a hard edge at grazing angles).
+- Hero wordmark: drei `<Text>` (troika) in the scene, additive, low contrast. troika's build rejects woff2, so it
+  uses `public/fonts/cormorant-garamond-light-wordmark.ttf`, a 2 KB subset (L, E, Y) from the Google Fonts API.
 - Optional, subtle bloom only. Note: a postprocessing composer renders the main pass offscreen; revisit
   `ReflectionOverlay`'s on-screen check if one is added.
 
@@ -125,7 +127,10 @@ Implemented in `src/scene/materials.tsx`, `Lighting.tsx`, `ReflectionOverlay.tsx
 - **Measure frame cost, not rAF rate.** When the Playwright browser window is covered by another window, Chrome
   throttles any page that renders to ~1 fps, which looks like a regression but isn't. Benchmark with
   `__leyl.three.set({ frameloop: 'never' })`, then time `__leyl.three.advance(t)` + `gl.getContext().finish()`
-  per frame. Baseline (Foundation, 1424×900, HD 530): ~6.3 ms median mid-sweep.
+  per frame, **paced** with a ~14 ms gap between frames (a flat-out loop thermally throttles the iGPU and
+  reports 3–7× worse numbers). Baseline (Hero, 1424×900, HD 530): ~2–3.5 ms median, p95 < 9 ms.
+- For intro screenshots, pause `__leyl.gsap.globalTimeline` *before* the intro starts, then step it with
+  `.time(T + t)`; completed tweens are removed from the global timeline, so seeking backwards doesn't work.
 
 ## Working rules (how to work on this project)
 1. Build one section at a time, in the order in `BRIEF.md`. Do not start the next section until the current one is reviewed.

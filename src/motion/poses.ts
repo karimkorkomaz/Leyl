@@ -21,3 +21,25 @@ export const heroPose: Record<'desktop' | 'mobile', BasePose> = {
 
 /** Idle float: amplitude in world units, period in seconds. */
 export const float = { amplitude: 0.05, period: 6 }
+
+/** The bottle starts this far below its rest pose and rises into place on load. */
+export const introDrop = -0.35
+
+export type WordmarkPose = {
+  /** Vertical center of the letters (world units). */
+  y: number
+  /** Depth: behind the bottle (which spans z ±1), in front of the Backdrop (z -5). */
+  z: number
+  /** Word width as a fraction of the visible width at its depth. Above 1 crops off both edges. */
+  widthFraction: number
+  /** How far the word travels per hero scrolled, in visible heights. Below 1 reads as deeper. */
+  parallax: number
+}
+
+export const wordmarkPose: Record<'desktop' | 'mobile', WordmarkPose> = {
+  // Across the bottle's shoulders: the cap rises in front of the letters, E and Y sit behind the glass.
+  desktop: { y: 2.35, z: -2.2, widthFraction: 0.84, parallax: 0.85 },
+  // On a portrait screen the bottle fills most of the width and would hide the word entirely, so
+  // the word sits above it, cropped at both edges, with the cap rising into its lower half.
+  mobile: { y: 4.45, z: -2.2, widthFraction: 1.22, parallax: 0.85 },
+}

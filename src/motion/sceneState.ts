@@ -20,6 +20,8 @@ const layer = (): Layer => ({ x: 0, y: 0, rotY: 0, capLift: 0, capTilt: 0, camY:
 export const sceneState = {
   base: { ...heroPose.desktop },
   layers: {
+    /** The bottle's rise on load (time-driven, not scroll). */
+    intro: layer(),
     flacon: layer(),
     notes: layer(),
     editions: layer(),
@@ -30,6 +32,13 @@ export const sceneState = {
     float: 1,
     /** 0–1 progress of the light strip across the glass; 0 and 1 are both "off". */
     sweep: 0,
+  },
+  /** The giant in-scene LEYL behind the bottle. Defaults are the final, at-rest state. */
+  wordmark: {
+    /** 0–1 mask reveal (letters slide up into place). */
+    reveal: 1,
+    /** 0–1 progress of the hero scrolling away; the wordmark leaves with it. */
+    scroll: 0,
   },
 }
 

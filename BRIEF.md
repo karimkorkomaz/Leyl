@@ -46,6 +46,10 @@ Principles borrowed (not layouts):
   follow the bottle outline and end in a small gold dot.
 - The cap carries a hairline brushed-gold band at its base (added in Foundation: the only gold visible at rest).
 - The thick glass base glows from inside with a paler tint of the edition color ("a base that holds the light").
+- Hero: on mobile the wordmark sits above the bottle (cropped at both edges, the cap rising into it); behind the
+  bottle at mid-height it was almost fully hidden on a portrait screen. Desktop keeps it across the shoulders.
+- Hero: tagline set bottom-left in two lines ("Wear the / night.", second line indented), scroll cue
+  bottom-right, keeping the bottle's axis clear. (Alternative if preferred: centered under the bottle.)
 
 Proposed defaults (not yet confirmed; revisit after screenshots):
 - The Notes: "scent" particles rise in trails from the bottle.

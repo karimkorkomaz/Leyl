@@ -6,6 +6,7 @@ import { Bottle } from './Bottle'
 import { Floor } from './Floor'
 import { Lighting } from './Lighting'
 import { useSceneDriver } from './useSceneDriver'
+import { Wordmark } from './Wordmark'
 
 export function Experience({ mobile }: { mobile: boolean }) {
   const { pose, lift, spin, capPivot } = useSceneDriver()
@@ -17,6 +18,7 @@ export function Experience({ mobile }: { mobile: boolean }) {
   return (
     <>
       <Lighting />
+      <Wordmark mobile={mobile} />
       <group ref={pose}>
         <Backdrop />
         <Floor />

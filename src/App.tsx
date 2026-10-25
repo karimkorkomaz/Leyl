@@ -3,13 +3,13 @@ import { gsap, ScrollTrigger, useGSAP } from './motion/gsap'
 import { startLenis } from './motion/lenis'
 import { MEDIA } from './motion/media'
 import { sceneState } from './motion/sceneState'
-import { sweepTimeline } from './motion/timelines/sweep'
 import { Editions } from './sections/Editions'
 import { Finale } from './sections/Finale'
 import { Flacon } from './sections/Flacon'
 import { Footer } from './sections/Footer'
 import { Hero } from './sections/Hero'
 import { Notes } from './sections/Notes'
+import { Nav } from './ui/Nav'
 
 // three.js and R3F are most of the bundle: load them as their own chunk so the DOM (and later the
 // preloader) paints first. The import starts at module load, not on first render, so nothing waits.
@@ -22,7 +22,6 @@ export default function App() {
 
     mm.add(MEDIA.motionOK, () => {
       sceneState.idle.float = 1
-      sweepTimeline()
       return startLenis()
     })
     mm.add(MEDIA.reducedMotion, () => {
@@ -37,6 +36,7 @@ export default function App() {
       <Suspense fallback={null}>
         <Stage />
       </Suspense>
+      <Nav />
       <main className="page">
         <Hero />
         <Flacon />

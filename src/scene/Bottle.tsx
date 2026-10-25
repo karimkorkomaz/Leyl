@@ -4,6 +4,7 @@ import { useGLTF } from '@react-three/drei'
 import type { GLTF } from 'three-stdlib'
 import { defaultEdition, editions } from '../content'
 import { ScrollTrigger } from '../motion/gsap'
+import { markReady } from '../motion/ready'
 import { GlassMaterial, LiquidMaterial } from './materials'
 import { ReflectionOverlay } from './ReflectionOverlay'
 
@@ -54,6 +55,7 @@ export function Bottle({ lite, capPivotRef }: BottleProps) {
   // Section heights don't depend on the model, but its arrival can shift layout timing.
   useEffect(() => {
     ScrollTrigger.refresh()
+    markReady('bottle')
   }, [])
 
   return (

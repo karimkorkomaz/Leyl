@@ -1,0 +1,81 @@
+.hero {
+  --len: var(--len-hero);
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Tagline bottom-left, cue bottom-right: off the bottle's axis so the bottle stays the hero. */
+.hero__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--gutter);
+  width: 100%;
+  padding: 0 var(--margin) clamp(1.75rem, 1rem + 3vh, 3.5rem);
+}
+
+.hero__tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(2.75rem, 1.4rem + 3.8vw, 5.5rem);
+  line-height: 0.92;
+  letter-spacing: var(--tracking-title);
+  color: var(--ivory);
+}
+
+.hero__line {
+  display: block;
+}
+
+/* Second line steps in, like a hand-set title. SplitText rebuilds the lines (numbered classes),
+   so the indent targets both the source span and the split line. */
+.hero__line + .hero__line,
+.hero__split-line2 {
+  padding-left: 0.9em;
+}
+
+.hero__cue {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+/* A hairline track with a gold segment falling through it. */
+.hero__cue-track {
+  position: relative;
+  width: 1px;
+  height: 3.25rem;
+  overflow: hidden;
+  background: rgb(138 131 120 / 0.25);
+}
+
+.hero__cue-line {
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateY(-100%);
+  animation: cue-fall 2.6s var(--ease-in-out) infinite;
+}
+
+@keyframes cue-fall {
+  0% {
+    transform: translateY(-100%);
+  }
+  55%,
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__cue-line {
+    animation: none;
+    transform: none;
+    opacity: 0.6;
+  }
+}
