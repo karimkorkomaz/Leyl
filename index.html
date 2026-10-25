@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LEYL — Wear the night.</title>
+    <meta name="description" content="LEYL, a perfume house from Beirut. Eau de Parfum in three editions: Anbar, Ward, Dukhan." />
+    <meta name="theme-color" content="#0a0908" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/manrope.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Fetch the model alongside the JS, not after it. crossorigin matches three's same-origin fetch, so it is reused. -->
+    <link rel="preload" href="/models/perfume_bottle.glb" as="fetch" crossorigin />
+    <!-- Paint ink before any CSS arrives: no white flash -->
+    <style>html, body { background: #0a0908; }</style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

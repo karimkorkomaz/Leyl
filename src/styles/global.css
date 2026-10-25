@@ -1,0 +1,117 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: var(--ink);
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100svh;
+  background: var(--ink);
+  color: var(--ivory);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* The single WebGL stage, fixed behind all DOM content.
+   100lvh so mobile toolbar show/hide never resizes the canvas. */
+.stage {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 100lvh;
+  z-index: var(--z-canvas);
+  pointer-events: none;
+}
+
+.page {
+  position: relative;
+  z-index: var(--z-content);
+}
+
+.section {
+  position: relative;
+  min-height: var(--len, 100svh);
+}
+
+/* Pinned sections: a tall section with a sticky full-screen stage inside.
+   Native sticky (not a GSAP pin) so React never fights a pin-spacer. */
+.pin {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    min-height: 100svh;
+  }
+}
+
+/* Placeholder footer until the Finale step */
+.footer {
+  position: relative;
+  z-index: var(--z-content);
+  display: grid;
+  gap: 0.5rem;
+  padding: 4rem var(--margin);
+  background: var(--ink);
+  color: var(--stone);
+  font-size: var(--fs-label);
+  letter-spacing: 0.04em;
+}
+
+.footer a {
+  border-bottom: 1px solid var(--hairline);
+}

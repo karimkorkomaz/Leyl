@@ -1,0 +1,61 @@
+:root {
+  /* Palette */
+  --ink: #0a0908;
+  --ink-2: #14110f;
+  --ivory: #ede6da;
+  --stone: #8a8378;
+  --gold: #c9a96e;
+  --hairline: rgb(201 169 110 / 0.35);
+
+  /* Editions (mirrored from content.ts, which drives the 3D liquid) */
+  --anbar: #c8782a;
+  --ward: #8e2a3e;
+  --dukhan: #3e5a78;
+
+  /* Type */
+  --font-display: 'Cormorant Garamond', 'Cormorant', Garamond, serif;
+  --font-ui: 'Manrope', sans-serif;
+  --font-arabic: 'Amiri', serif;
+
+  --fs-label: 0.6875rem;                                  /* 11px, uppercase UI */
+  --fs-body: 0.9375rem;                                   /* 15px */
+  --fs-lead: clamp(1.375rem, 1.1rem + 0.9vw, 1.875rem);   /* serif lead lines */
+  --fs-title: clamp(3rem, 1.6rem + 6vw, 8.5rem);          /* section headlines */
+  --fs-display: clamp(7rem, 1rem + 26vw, 30rem);          /* giant wordmarks */
+
+  --tracking-label: 0.2em;
+  --tracking-title: -0.02em;
+  --tracking-display: -0.04em;
+
+  /* Layout: 12-column grid */
+  --columns: 12;
+  --margin: clamp(1.25rem, 0.6rem + 3vw, 4rem);
+  --gutter: clamp(0.75rem, 0.4rem + 1.2vw, 1.75rem);
+
+  /* Motion (CSS side; GSAP uses its own named eases) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Stacking */
+  --z-canvas: 0;
+  --z-content: 1;
+  --z-nav: 10;
+  --z-grain: 50;
+  --z-cursor: 60;
+  --z-preloader: 100;
+
+  /* Section scroll lengths (pinned sections hold a sticky 100svh stage inside) */
+  --len-hero: 100svh;
+  --len-flacon: 300vh;
+  --len-notes: 300vh;
+  --len-editions: 110svh;
+  --len-finale: 200vh;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --len-flacon: 200vh;
+    --len-notes: 200vh;
+    --len-finale: 150vh;
+  }
+}
