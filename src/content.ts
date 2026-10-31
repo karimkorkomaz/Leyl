@@ -112,7 +112,7 @@ export const callouts: readonly { id: CalloutId; title: string; body: string }[]
 ]
 
 export const credits = {
-  concept: 'A concept by Ahmad El Amine',
+  concept: 'A concept by Karim Korkomaz',
   // Rendered as "Perfume Bottle 3D model by lamborado, CC BY 4.0" (required by the model's license).
   model: {
     title: 'Perfume Bottle 3D model by lamborado',
