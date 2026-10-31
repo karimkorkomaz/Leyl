@@ -31,10 +31,14 @@ export function finaleTimeline(
     { rotY: pose.turn, camZ: pose.camZ - editions.camZ, targetY: pose.targetY - editions.targetY, duration: enter, ease: EASE_3D },
     0,
   )
-  tl.from(chars, { yPercent: 115, duration: enter * 0.35, stagger: (enter * 0.55) / chars.length }, enter * 0.55)
+  // The line starts as the poster settles and finishes inside the pin, so it is read standing still,
+  // not while the section is still sliding in. The light crosses once the last letter has landed.
+  const revealAt = enter * 0.7
+  const reveal = enter - revealAt + held * 0.3
+  tl.from(chars, { yPercent: 115, duration: reveal * 0.4, stagger: (reveal * 0.6) / chars.length }, revealAt)
   tl.set({}, {}, enter + held)
 
-  ScrollTrigger.create({ trigger: root, start: () => `top+=${held * 0.35} top`, onEnter: sweepNow })
+  ScrollTrigger.create({ trigger: root, start: () => `top+=${held * 0.38} top`, onEnter: sweepNow })
   return tl
 }
 

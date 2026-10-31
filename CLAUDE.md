@@ -126,7 +126,13 @@ Implemented in `src/scene/materials.tsx`, `Lighting.tsx`, `ReflectionOverlay.tsx
 - Text reveals use SplitText with masks (lines or chars sliding up inside `overflow: hidden`), never plain fades only.
 - Animate only `transform` and `opacity` in the DOM.
 - Camera moves are slow and purposeful. The bottle's idle state has a slow float (~0.05 units, 6s cycle).
-- Mobile: same story, simpler moves, shorter pins (≤200vh), bottle centered, `dpr={[1, 1.5]}`.
+- Pacing: each scrubbed beat needs a few wheel notches of its own. Pins are 500vh (Flacon, Notes), Editions 170svh,
+  Finale 300vh (`--len-*` in `tokens.css`); Lenis uses `lerp: 0.075, wheelMultiplier: 0.7`. Don't shorten them back:
+  at 300vh / `lerp: 0.1` the whole Flacon passed in a few flicks.
+- Mobile: same story, simpler moves, shorter pins (Flacon/Notes 320vh, Finale 200vh; touch scroll is native, so the
+  pin length is the only pacing), bottle centered, `dpr={[1, 1.5]}`.
+- Two scrubbed tweens must never write the same property of the same element (their catch-ups land in either order
+  after a fast jump). Split them across `yPercent` / `y` (see the Flacon headline).
 - Reduced motion: no Lenis, no scrubbing, no idle float; sections show their final states with simple fades.
 
 ## Performance budget

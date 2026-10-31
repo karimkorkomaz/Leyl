@@ -73,7 +73,7 @@ When loading completes, the preloader splits open (two halves slide apart or a m
 - Tagline "Wear the night." reveals line by line below. Small "Scroll" cue with a thin animated line at the bottom.
 - Top nav: logo on the left; "Editions", "The Notes", "Discover" on the right (small uppercase Manrope).
 
-### 2. The Flacon (pinned, ~300vh desktop)
+### 2. The Flacon (pinned, ~500vh desktop)
 - 0–40%: The bottle rotates 180° slowly while the camera eases closer.
 - 40–70%: The cap lifts ~1.2 units and tilts slightly, then hovers, revealing the pump.
 - Three callouts appear one at a time, each connected to its part by a thin gold line that draws itself:
@@ -82,7 +82,7 @@ When loading completes, the preloader splits open (two halves slide apart or a m
   - "50 ml. Eau de Parfum."
 - 70–100%: The cap settles back, the bottle drifts left to make room for the next section.
 
-### 3. The Notes (pinned, ~300vh desktop)
+### 3. The Notes (pinned, ~500vh desktop)
 - Three stages: **Top**, **Heart**, **Base**, for the active edition.
 - Each stage: a huge serif word for the stage name, the notes listed small beneath it, and a large, faint numeral (01, 02, 03).
 - The atmosphere shifts per stage: a soft radial glow behind the bottle and drifting particles ("scent") change tone

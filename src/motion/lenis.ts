@@ -20,7 +20,9 @@ export function setScrollLocked(value: boolean) {
 
 /** Start Lenis on GSAP's ticker so ScrollTrigger and Lenis share one clock. Returns a cleanup. */
 export function startLenis() {
-  const instance = new Lenis({ autoRaf: false, lerp: 0.1, smoothWheel: true, anchors: true })
+  // A shorter wheel step and a softer glide: the story is scrubbed, so a notch should advance it a
+  // beat, not a scene. Touch stays native (syncTouch off); its pacing comes from the pin lengths.
+  const instance = new Lenis({ autoRaf: false, lerp: 0.075, wheelMultiplier: 0.7, smoothWheel: true, anchors: true })
   const raf = (time: number) => instance.raf(time * 1000)
 
   instance.on('scroll', ScrollTrigger.update)

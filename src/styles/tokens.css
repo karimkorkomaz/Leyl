@@ -44,18 +44,20 @@
   --z-cursor: 60;
   --z-preloader: 100;
 
-  /* Section scroll lengths (pinned sections hold a sticky 100svh stage inside) */
+  /* Section scroll lengths (pinned sections hold a sticky 100svh stage inside). A pin scrubs over
+     its length minus one viewport: long enough that each beat (turn, cap, each callout, each note
+     stage) gets a few wheel notches of its own instead of passing in one flick. */
   --len-hero: 100svh;
-  --len-flacon: 300vh;
-  --len-notes: 300vh;
-  --len-editions: 110svh;
-  --len-finale: 200vh;
+  --len-flacon: 500vh;
+  --len-notes: 500vh;
+  --len-editions: 170svh;
+  --len-finale: 300vh;
 }
 
 @media (max-width: 768px) {
   :root {
-    --len-flacon: 200vh;
-    --len-notes: 200vh;
-    --len-finale: 150vh;
+    --len-flacon: 320vh;
+    --len-notes: 320vh;
+    --len-finale: 200vh;
   }
 }

@@ -58,12 +58,14 @@ export function flaconTimeline(
   tl.to(layer, { capTilt: pose.capTilt, duration: 8, ease: EASE_3D }, 47)
   // Hover: the cap keeps rising, barely, while the callouts read.
   tl.to(layer, { capLift: pose.capLift + 0.07, duration: 16, ease: EASE_3D }, 54)
-  // -150, not -110: at line-height 0.95 a descender (the g of "night") overhangs its mask and would
-  // peek back in after a one-box exit.
-  tl.to(introLines, { yPercent: -150, duration: 5, stagger: 0.8 }, 30)
+  // The exit moves `y` while the entrance owns `yPercent`: the two compose in the transform instead
+  // of fighting over one value (after a fast jump, the entrance's scrub catch-up could otherwise land
+  // after the exit and leave the headline over the callouts). 1.5 line boxes, not 1: at line-height
+  // 0.95 a descender (the g of "night") overhangs its mask and would peek back in.
+  tl.to(introLines, { y: (_: number, el: HTMLElement) => -1.5 * el.offsetHeight, duration: 5, stagger: 0.8 }, 30)
 
-  // Desktop callouts stay once drawn. Mobile shows one at a time, and its pin is shorter (200vh, so
-  // one unit is ~1vh of scroll): each gets a ~10-unit window with a quicker draw so it can be read.
+  // Desktop callouts stay once drawn. Mobile shows one at a time, and its pin is shorter (320vh, so
+  // one unit is ~2.2vh of scroll): each gets a ~10-unit window with a quicker draw so it can be read.
   const starts: Record<CalloutId, number> = stacked
     ? { base: 43, cap: 51, volume: 59 }
     : { base: 40, cap: 51, volume: 62 }
